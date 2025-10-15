@@ -1,4 +1,4 @@
-package com.vaadin.lab.ai;
+package com.vaadin.lab;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;

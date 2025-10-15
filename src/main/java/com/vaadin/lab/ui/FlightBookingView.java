@@ -1,4 +1,4 @@
-package com.vaadin.lab.ai;
+package com.vaadin.lab.ui;
 
 
 import com.vaadin.flow.component.Component;
@@ -9,9 +9,9 @@ import com.vaadin.flow.component.messages.MessageListItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.lab.ai.model.BookingDetails;
-import com.vaadin.lab.ai.services.CustomerSupportAssistant;
-import com.vaadin.lab.ai.services.FlightBookingService;
+import com.vaadin.lab.ai.CustomerSupportAssistant;
+import com.vaadin.lab.model.BookingDetails;
+import com.vaadin.lab.services.FlightBookingService;
 
 import java.util.UUID;
 

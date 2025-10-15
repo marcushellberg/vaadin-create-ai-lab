@@ -1,4 +1,4 @@
-package com.vaadin.lab.ai.model;
+package com.vaadin.lab.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

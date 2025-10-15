@@ -72,12 +72,26 @@ This lab demonstrates the following Spring AI features:
 
 ## Project Structure
 
-- `FlightBookingView.java` - Main UI with chat interface and bookings grid
-- `CustomerSupportAssistant.java` - Spring AI chat client configuration with advisors
-- `BookingTools.java` - Tool definitions for booking operations
-- `VectorDbConfig.java` - Vector store configuration for RAG
-- `DocumentProcessor.java` - Document ingestion into vector store
-- `src/main/resources/rag/` - Knowledge base documents for RAG
+```
+src/main/java/com/vaadin/lab/
+├── AiApplication.java                          # Spring Boot main application
+├── ai/
+│   ├── CustomerSupportAssistant.java          # Spring AI chat client with advisors
+│   ├── retrieval/
+│   │   ├── DocumentProcessor.java             # Document ingestion into vector store
+│   │   └── VectorDbConfig.java                # Vector store configuration for RAG
+│   └── tool/
+│       └── BookingTools.java                  # Tool definitions for booking operations
+├── model/                                      # Domain models (Booking, Customer, etc.)
+├── repository/                                 # Spring Data JPA repositories
+│   └── DataInitializer.java                   # Sample data initialization
+├── services/
+│   └── FlightBookingService.java              # Business logic for bookings
+└── ui/
+    └── FlightBookingView.java                 # Main UI with chat and bookings grid
+
+src/main/resources/rag/                         # Knowledge base documents for RAG
+```
 
 ## Technologies Used
 

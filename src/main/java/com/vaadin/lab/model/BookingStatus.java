@@ -1,4 +1,4 @@
-package com.vaadin.lab.ai.model;
+package com.vaadin.lab.model;
 
 public enum BookingStatus {
     CONFIRMED, COMPLETED, CANCELLED

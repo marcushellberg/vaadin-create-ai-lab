@@ -1,7 +1,10 @@
-package com.vaadin.lab.ai.services;
+package com.vaadin.lab.services;
 
-import com.vaadin.lab.ai.model.*;
-import com.vaadin.lab.ai.repository.BookingRepository;
+import com.vaadin.lab.model.Booking;
+import com.vaadin.lab.model.BookingDetails;
+import com.vaadin.lab.model.BookingStatus;
+import com.vaadin.lab.repository.BookingRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

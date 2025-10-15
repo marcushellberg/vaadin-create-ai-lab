@@ -1,6 +1,7 @@
-package com.vaadin.lab.ai.repository;
+package com.vaadin.lab.repository;
 
-import com.vaadin.lab.ai.model.Customer;
+import com.vaadin.lab.model.Customer;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

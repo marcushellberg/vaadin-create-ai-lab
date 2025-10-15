@@ -1,4 +1,4 @@
-package com.vaadin.lab.ai.model;
+package com.vaadin.lab.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;

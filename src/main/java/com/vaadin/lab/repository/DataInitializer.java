@@ -1,16 +1,15 @@
-package com.vaadin.lab.ai;
+package com.vaadin.lab.repository;
 
-import com.vaadin.lab.ai.model.Booking;
-import com.vaadin.lab.ai.model.BookingClass;
-import com.vaadin.lab.ai.model.BookingStatus;
-import com.vaadin.lab.ai.model.Customer;
-import com.vaadin.lab.ai.repository.BookingRepository;
-import com.vaadin.lab.ai.repository.CustomerRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+
+import com.vaadin.lab.model.Booking;
+import com.vaadin.lab.model.BookingClass;
+import com.vaadin.lab.model.BookingStatus;
+import com.vaadin.lab.model.Customer;
 
 @Component
 public class DataInitializer implements ApplicationRunner {
