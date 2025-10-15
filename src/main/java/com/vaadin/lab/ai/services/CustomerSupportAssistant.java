@@ -61,14 +61,13 @@ public class CustomerSupportAssistant {
 				.build();
 	}
 
-	public Flux<String> chat(String chatId, String userMessage, Object... additionalTools) {
+	public String chat(String chatId, String userMessage) {
 
 		return this.chatClient.prompt()
 			.user(userMessage)
-			.tools(additionalTools)
 			.advisors(a -> a.param(ChatMemory.CONVERSATION_ID, chatId))
-			.stream()
-			.content();	
+			.call()
+			.content();
 	}
 	// @formatter:on
 
