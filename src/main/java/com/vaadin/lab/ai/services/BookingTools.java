@@ -1,6 +1,6 @@
 package com.vaadin.lab.ai.services;
 
-import com.vaadin.lab.ai.data.BookingDetails;
+import com.vaadin.lab.ai.model.BookingDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.tool.annotation.Tool;

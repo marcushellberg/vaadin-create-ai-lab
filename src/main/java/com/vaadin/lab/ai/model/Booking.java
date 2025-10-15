@@ -1,26 +1,43 @@
-package com.vaadin.lab.ai.data;
+package com.vaadin.lab.ai.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "bookings")
 public class Booking {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private String bookingNumber;
 
+	@Column(name = "flight_date")
 	private LocalDate date;
 
 	private LocalDate bookingTo;
 
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
+	@Column(name = "origin")
 	private String from;
 
+	@Column(name = "destination")
 	private String to;
 
+	@Enumerated(EnumType.STRING)
 	private BookingStatus bookingStatus;
 
 	private String seatNumber;
 
+	@Enumerated(EnumType.STRING)
 	private BookingClass bookingClass;
+
+	public Booking() {
+	}
 
 	public Booking(String bookingNumber, LocalDate date, Customer customer, BookingStatus bookingStatus, String from,
 			String to, String seatNumber, BookingClass bookingClass) {
@@ -32,6 +49,14 @@ public class Booking {
 		this.to = to;
         this.seatNumber = seatNumber;
 		this.bookingClass = bookingClass;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getBookingNumber() {

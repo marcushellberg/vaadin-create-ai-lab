@@ -1,78 +1,35 @@
 package com.vaadin.lab.ai.services;
 
-import com.vaadin.lab.ai.data.*;
+import com.vaadin.lab.ai.model.*;
+import com.vaadin.lab.ai.repository.BookingRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
+@Transactional
 public class FlightBookingService {
 
-	// -----------------------------
-	// Booking Database
-	// -----------------------------
-	private final BookingData db;
+	private final BookingRepository bookingRepository;
 
-	public FlightBookingService() {
-		db = new BookingData();
-
-		initDemoData();
-	}
-
-	private void initDemoData() {
-		List<String> firstNames = List.of("John", "Jane", "Michael", "Sarah", "Robert");
-		List<String> lastNames = List.of("Doe", "Smith", "Johnson", "Williams", "Taylor");
-		List<String> airportCodes = List.of("LAX", "SFO", "JFK", "LHR", "CDG", "ARN", "HEL", "TXL", "MUC", "FRA", "MAD",
-				"FUN", "SJC");
-		Random random = new Random();
-
-		var customers = new ArrayList<Customer>();
-		var bookings = new ArrayList<Booking>();
-
-		for (int i = 0; i < 5; i++) {
-			String firstName = firstNames.get(i);
-			String lastName = lastNames.get(i);
-			String from = airportCodes.get(random.nextInt(airportCodes.size()));
-			String to = airportCodes.get(random.nextInt(airportCodes.size()));
-			String seatNumber = (random.nextInt(19) + 1) + "A";
-			BookingClass bookingClass = BookingClass.values()[random.nextInt(BookingClass.values().length)];
-			Customer customer = new Customer();
-			customer.setFirstName(firstName);
-			customer.setLastName(lastName);
-
-			LocalDate date = LocalDate.now().plusDays(2 * i);
-
-			Booking booking = new Booking("10" + (i + 1), date, customer, BookingStatus.CONFIRMED, from, to, seatNumber,
-					bookingClass);
-			customer.getBookings().add(booking);
-
-			customers.add(customer);
-			bookings.add(booking);
-		}
-
-		// Reset the database on each start
-		db.setCustomers(customers);
-		db.setBookings(bookings);
+	public FlightBookingService(BookingRepository bookingRepository) {
+		this.bookingRepository = bookingRepository;
 	}
 
 	// -----------------------------
 	// Booking Service
 	// -----------------------------
 	public List<BookingDetails> getBookings() {
-		return db.getBookings().stream().map(this::toBookingDetails).toList();
+		return bookingRepository.findAllByOrderByDateAsc().stream().map(this::toBookingDetails).toList();
 	}
 
 	private Booking findBooking(String bookingNumber, String firstName, String lastName) {
-		return db.getBookings()
-			.stream()
-			.filter(b -> b.getBookingNumber().equalsIgnoreCase(bookingNumber))
-			.filter(b -> b.getCustomer().getFirstName().equalsIgnoreCase(firstName))
-			.filter(b -> b.getCustomer().getLastName().equalsIgnoreCase(lastName))
-			.findFirst()
-			.orElseThrow(() -> new IllegalArgumentException("Booking not found"));
+		return bookingRepository
+				.findByBookingNumberIgnoreCaseAndCustomerFirstNameIgnoreCaseAndCustomerLastNameIgnoreCase(
+						bookingNumber, firstName, lastName)
+				.orElseThrow(() -> new IllegalArgumentException("Booking not found"));
 	}
 
 	public BookingDetails getBookingDetails(String bookingNumber, String firstName, String lastName) {
@@ -89,6 +46,7 @@ public class FlightBookingService {
 		booking.setDate(LocalDate.parse(newDate));
 		booking.setFrom(from);
 		booking.setTo(to);
+		bookingRepository.save(booking);
 	}
 
 	public void cancelBooking(String bookingNumber, String firstName, String lastName) {
@@ -97,6 +55,7 @@ public class FlightBookingService {
 			throw new IllegalArgumentException("Booking cannot be cancelled within 48 hours of the start date.");
 		}
 		booking.setBookingStatus(BookingStatus.CANCELLED);
+		bookingRepository.save(booking);
 	}
 
 	private BookingDetails toBookingDetails(Booking booking) {
@@ -108,6 +67,7 @@ public class FlightBookingService {
 	public void changeSeat(String bookingNumber, String firstName, String lastName, String seatNumber) {
 		var booking = findBooking(bookingNumber, firstName, lastName);
 		booking.setSeatNumber(seatNumber);
+		bookingRepository.save(booking);
 	}
 
 }

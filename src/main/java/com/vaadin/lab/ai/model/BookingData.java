@@ -1,4 +1,4 @@
-package com.vaadin.lab.ai.data;
+package com.vaadin.lab.ai.model;
 
 import java.util.ArrayList;
 import java.util.List;

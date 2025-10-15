@@ -2,7 +2,6 @@ package com.vaadin.lab.ai;
 
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.messages.MessageInput;
 import com.vaadin.flow.component.messages.MessageList;
@@ -10,12 +9,11 @@ import com.vaadin.flow.component.messages.MessageListItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.lab.ai.data.BookingDetails;
+import com.vaadin.lab.ai.model.BookingDetails;
 import com.vaadin.lab.ai.services.CustomerSupportAssistant;
 import com.vaadin.lab.ai.services.FlightBookingService;
 
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Route("")
 public class FlightBookingView extends SplitLayout {
