@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,30 +38,38 @@ public class BookingTools {
 		this.flightBookingService = flightBookingService;
 	}
 
-	@Tool(description = "Get booking details")
+	@Tool(description = "Provides flight booking details")
 	public BookingDetails getBookingDetails(String bookingNumber, String firstName, String lastName) {
 
-		logger.info("Getting booking details for bookingNumber: {}, firstName: {}, lastName: {}", bookingNumber,
+		logger.info("Tool: Provides flight booking details for bookingNumber: {}, firstName: {}, lastName: {}", bookingNumber,
 				firstName, lastName);
 
 		return this.flightBookingService.getBookingDetails(bookingNumber, firstName, lastName);
 	}
 
-	@Tool(description = "Change booking dates")
-	public void changeBooking(String bookingNumber, String firstName, String lastName, String newDate, String from,
-			String to) {
+	@Tool(description = "Use to change the date of flight booking")
+	public void changeBooking(
+		@ToolParam(description = "The booking number") String bookingNumber,
+		@ToolParam(description = "The customer's first name") String firstName,
+		@ToolParam(description = "The customer's last name") String lastName,
+		@ToolParam(description = "The new date for the flight") String newDate,
+		@ToolParam(description = "The departure location") String from,
+		@ToolParam(description = "The destination location") String to) {
 
 		logger.info(
-				"Changing booking for bookingNumber: {}, firstName: {}, lastName: {}, newDate: {}, from: {}, to: {}",
+				"Tool: Change flight booking for bookingNumber: {}, firstName: {}, lastName: {}, newDate: {}, from: {}, to: {}",
 				bookingNumber, firstName, lastName, newDate, from, to);
 
 		this.flightBookingService.changeBooking(bookingNumber, firstName, lastName, newDate, from, to);
 	};
 
-	@Tool(description = "Cancel booking")
-	public void cancelBooking(String bookingNumber, String firstName, String lastName) {
+	@Tool(description = "Use to cancel an existing booking")
+	public void cancelBooking(
+		@ToolParam(description = "The booking number") String bookingNumber,
+		@ToolParam(description = "The customer's first name") String firstName,
+		@ToolParam(description = "The customer's last name") String lastName) {
 
-		logger.info("Cancelling booking for bookingNumber: {}, firstName: {}, lastName: {}", bookingNumber, firstName,
+		logger.info("Tool: Cancel flight booking for bookingNumber: {}, firstName: {}, lastName: {}", bookingNumber, firstName,
 				lastName);
 
 		this.flightBookingService.cancelBooking(bookingNumber, firstName, lastName);
