@@ -75,6 +75,8 @@ public class FlightBookingView extends SplitLayout {
         var responseItem = new MessageListItem(assistant.chat(chatId, userMessage), null, "Assistant");
         responseItem.setUserColorIndex(2);
         messageList.addItem(responseItem);
+
+        updateBookings();
     }
 
     private void updateBookings() {

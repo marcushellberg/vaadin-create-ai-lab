@@ -39,7 +39,11 @@ public class BookingTools {
 	}
 
 	@Tool(description = "Provides flight booking details")
-	public BookingDetails getBookingDetails(String bookingNumber, String firstName, String lastName) {
+	public BookingDetails getBookingDetails(
+		@ToolParam(description = "The booking number") String bookingNumber,
+		@ToolParam(description = "The customer's first name") String firstName,
+		@ToolParam(description = "The customer's last name") String lastName
+	) {
 
 		logger.info("Tool: Provides flight booking details for bookingNumber: {}, firstName: {}, lastName: {}", bookingNumber,
 				firstName, lastName);
@@ -47,14 +51,14 @@ public class BookingTools {
 		return this.flightBookingService.getBookingDetails(bookingNumber, firstName, lastName);
 	}
 
-	@Tool(description = "Use to change the date of flight booking")
+	@Tool(description = "Use to change a flight booking")
 	public void changeBooking(
 		@ToolParam(description = "The booking number") String bookingNumber,
 		@ToolParam(description = "The customer's first name") String firstName,
 		@ToolParam(description = "The customer's last name") String lastName,
 		@ToolParam(description = "The new date for the flight") String newDate,
-		@ToolParam(description = "The departure location") String from,
-		@ToolParam(description = "The destination location") String to) {
+		@ToolParam(description = "The departure airport code, (e.g. JFK)") String from,
+		@ToolParam(description = "The destination airport code (e.g. SFO)") String to) {
 
 		logger.info(
 				"Tool: Change flight booking for bookingNumber: {}, firstName: {}, lastName: {}, newDate: {}, from: {}, to: {}",
