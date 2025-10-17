@@ -49,7 +49,7 @@ public class CustomerSupportAssistant {
 
 		this.chatClient = chatClientBuilder
 				// SYSTEM PROMPT
-				.defaultSystem(systemPrompt)
+				.defaultSystem(p -> p.text(systemPrompt).param("ariline-name", "Funnair"))
 				.defaultAdvisors(
 					// MEMORY
 					MessageChatMemoryAdvisor.builder(chatMemory).build(),
@@ -57,8 +57,9 @@ public class CustomerSupportAssistant {
 					QuestionAnswerAdvisor.builder(vectorStore).build(),
 					// GUARDRAILS
 					SafeGuardAdvisor.builder() 
-						.order(Advisor.DEFAULT_CHAT_MEMORY_PRECEDENCE_ORDER - 100)
-						.sensitiveWords(List.of("credit card number", "visa number", "password", "ssn", "social security number"))
+						.order(Advisor.DEFAULT_CHAT_MEMORY_PRECEDENCE_ORDER - 100) // ensures it is not put in the chat memory
+						.sensitiveWords(List.of(
+							"credit card number", "visa number", "password", "ssn", "social security number"))
 						.build()
 				)
 				// TOOLS
